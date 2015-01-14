@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.parse.ParseAnalytics;
@@ -30,6 +33,23 @@ public class MainActivity extends FragmentActivity implements
         ActionBar.TabListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    protected DialogInterface.OnClickListener mDialogListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(which){
+                        case 0://Take picture
+                            break;
+                        case 1://Take video
+                            break;
+                        case 2://Choose picture
+                            break;
+                        case 3://Choose video
+                            break;
+                    }
+                }
+            };
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,6 +69,7 @@ public class MainActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
 
         ParseAnalytics.trackAppOpened(getIntent());
@@ -114,13 +135,18 @@ public class MainActivity extends FragmentActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.action_logout) {
+        switch(itemId){
+            case R.id.action_logout:
             ParseUser.logOut();
             navigateToLogin();
-        }
-        else if (itemId == R.id.action_edit_friends){
-          Intent intent = new Intent(this, EditFriendsActivity.class);
+            case R.id.action_edit_friends:
+            Intent intent = new Intent(this, EditFriendsActivity.class);
             startActivity(intent);
+            case R.id.action_camera:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setItems(R.array.camera_choices, mDialogListener);
+                AlertDialog dialog = builder.create();
+                dialog.show();
         }
         return super.onOptionsItemSelected(item);
     }

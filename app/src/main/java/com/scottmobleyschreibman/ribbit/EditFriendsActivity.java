@@ -27,9 +27,9 @@ public class EditFriendsActivity extends ListActivity {
 
     public static final  String TAG = EditFriendsActivity.class.getSimpleName();
 
-    protected List<ParseUser> mUsers;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
+    protected List<ParseUser> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class EditFriendsActivity extends ListActivity {
         setActionBar();
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
+        @Override
        protected void onResume(){
            super.onResume();
 
@@ -89,12 +90,7 @@ public class EditFriendsActivity extends ListActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_friends, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,6 +113,11 @@ public class EditFriendsActivity extends ListActivity {
         if(getListView().isItemChecked(position)) {
             //add friend
             mFriendsRelation.add(mUsers.get(position));
+
+        }
+        else {
+            //remove friend
+            mFriendsRelation.remove(mUsers.get(position));
             mCurrentUser.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -125,10 +126,6 @@ public class EditFriendsActivity extends ListActivity {
                     }
                 }
             });
-        }
-        else {
-            //remove friend
-
         }
 
     }
