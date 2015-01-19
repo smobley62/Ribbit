@@ -53,7 +53,7 @@ public class FriendsFragment extends ListFragment {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> friends, ParseException e) {
-                 getActivity().setProgressBarIndeterminateVisibility(false);
+                getActivity().setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
                     mFriends = friends;
 
@@ -68,8 +68,7 @@ public class FriendsFragment extends ListFragment {
                             android.R.layout.simple_list_item_1,
                             usernames);
                     setListAdapter(adapter);
-                }
-                else {
+                } else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(getListView().getContext());
                     builder.setMessage(e.getMessage())
