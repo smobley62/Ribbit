@@ -1,5 +1,9 @@
 package com.scottmobleyschreibman.ribbit;
 
+
+
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -15,11 +19,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import java.util.List;
-
-/**
- * Created by Owner on 1/9/2015.
- */
 public class FriendsFragment extends ListFragment {
 
     public static final String TAG = FriendsFragment.class.getSimpleName();
@@ -34,10 +33,9 @@ public class FriendsFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_friends,
                 container, false);
 
-
         return rootView;
-
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -49,17 +47,17 @@ public class FriendsFragment extends ListFragment {
 
         ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
         query.addAscendingOrder(ParseConstants.KEY_USERNAME);
-
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> friends, ParseException e) {
                 getActivity().setProgressBarIndeterminateVisibility(false);
+
                 if (e == null) {
                     mFriends = friends;
 
                     String[] usernames = new String[mFriends.size()];
                     int i = 0;
-                    for (ParseUser user : mFriends) {
+                    for(ParseUser user : mFriends) {
                         usernames[i] = user.getUsername();
                         i++;
                     }
@@ -68,7 +66,8 @@ public class FriendsFragment extends ListFragment {
                             android.R.layout.simple_list_item_1,
                             usernames);
                     setListAdapter(adapter);
-                } else {
+                }
+                else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(getListView().getContext());
                     builder.setMessage(e.getMessage())
@@ -76,10 +75,9 @@ public class FriendsFragment extends ListFragment {
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-
                 }
             }
         });
     }
 
-    }
+}
