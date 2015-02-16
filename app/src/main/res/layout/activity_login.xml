@@ -48,6 +48,8 @@
     <Button
         android:text="@string/login_button"
         android:id="@+id/loginButton"
+        android:layout_below="@id/editTextLayout"
+        android:layout_alignParentLeft="true"
         style="@style/AuthButton"/>
 
 

@@ -10,6 +10,7 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="login_button">SIGN IN</string>
+    <string name="cancel_button_label">CANCEL</string>
     <string name="signUp_hint">Don\'t have an account? Sign up!</string>
     <string name="sign_up_activity">SignUpActivity</string>
     <string name="email_hint">Email</string>
@@ -37,6 +38,7 @@
     <string name="success_message">Message sent!</string>
     <string name="error_sending_message">There was an error sending your message. Please try again.</string>
     <string name="content_desc_background">Ribbit Frog Background Image</string>
+    <string name="content_desc_button_divider">Button divider</string>
     <string name="subtitle">A Treehouse Project</string>
 
     <string-array name="camera_choices">
